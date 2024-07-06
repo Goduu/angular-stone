@@ -6,23 +6,9 @@
       >
         <th
           class="bg-gray-100 p-2 text-gray-800 font-bold md:border md:border-grey-500 text-left block md:table-cell"
+          *ngFor="let column of columns"
         >
-          ID
-        </th>
-        <th
-          class="bg-gray-100 p-2 text-gray-800 font-bold md:border md:border-grey-500 text-left block md:table-cell"
-        >
-          Name
-        </th>
-        <th
-          class="bg-gray-100 p-2 text-gray-800 font-bold md:border md:border-grey-500 text-left block md:table-cell"
-        >
-          Age
-        </th>
-        <th
-          class="bg-gray-100 p-2 text-gray-800 font-bold md:border md:border-grey-500 text-left block md:table-cell"
-        >
-          Email
+          {{ column.label }}
         </th>
       </tr>
     </thead>
@@ -33,23 +19,9 @@
       >
         <td
           class="p-2 md:border md:border-grey-500 text-left block md:table-cell"
+          *ngFor="let column of columns"
         >
-          {{ item.id }}
-        </td>
-        <td
-          class="p-2 md:border md:border-grey-500 text-left block md:table-cell"
-        >
-          {{ item.name }}
-        </td>
-        <td
-          class="p-2 md:border md:border-grey-500 text-left block md:table-cell"
-        >
-          {{ item.age }}
-        </td>
-        <td
-          class="p-2 md:border md:border-grey-500 text-left block md:table-cell"
-        >
-          {{ item.email }}
+          {{ item[column.key] }}
         </td>
       </tr>
     </tbody>
