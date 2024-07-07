@@ -9,4 +9,12 @@ export type ColumnDefinition = {
     key: keyof DataModel;
     label: string;
     type: 'text' | 'number' | 'email';
+    editable?: boolean;
+}
+
+export type EditingField = {
+    columnKey: keyof DataModel;
+    rowId: number;
+    value: string | number;
+    type: 'text' | 'number' | 'email';
 }

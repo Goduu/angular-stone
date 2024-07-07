@@ -21,7 +21,28 @@
           class="p-2 md:border md:border-grey-500 text-left block md:table-cell"
           *ngFor="let column of columns"
         >
-          {{ item[column.key] }}
+          <div
+            *ngIf="!isEditingCell(column.key, item.id)"
+            (dblclick)="
+              column.editable
+                ? setEditingField(
+                    column.key,
+                    item.id,
+                    item[column.key],
+                    column.type
+                  )
+                : null
+            "
+          >
+            {{ item[column.key] }}
+          </div>
+          <ng-container *ngIf="isEditingCell(column.key, item.id)">
+            <input
+              [(ngModel)]="item[column.key]"
+              [type]="column.type"
+              class="border border-gray-400 p-2 w-auto"
+            />
+          </ng-container>
         </td>
       </tr>
     </tbody>
