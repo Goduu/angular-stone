@@ -10,22 +10,27 @@
         >
           {{ column.label }}
         </th>
+        <th
+          class="bg-gray-100 p-2 text-gray-800 font-bold md:border md:border-grey-500 text-left block md:table-cell"
+        >
+          Actions
+        </th>
       </tr>
     </thead>
     <tbody class="block md:table-row-group">
       <tr
-        *ngFor="let item of data"
+        *ngFor="let row of data"
         class="bg-gray-300 border border-grey-500 md:border-none block md:table-row"
       >
         <td
           class="p-2 md:border md:border-grey-500 text-left"
           *ngFor="let column of columns"
           (dblclick)="
-            column.editable && !isEditingCell(column.key, item.id)
+            column.editable && !isEditingCell(column.key, row.id)
               ? setEditingField(
                   column.key,
-                  item.id,
-                  item[column.key],
+                  row.id,
+                  row[column.key],
                   column.type
                 )
               : null
@@ -33,14 +38,20 @@
         >
           <app-row-cell
             [cell]="{
-              rowId: item.id,
+              rowId: row.id,
               columnKey: column.key,
-              value: item[column.key],
+              value: row[column.key],
               type: column.type
             }"
-            [isEditingCell]="isEditingCell(column.key, item.id)"
+            [isEditingCell]="isEditingCell(column.key, row.id)"
           >
           </app-row-cell>
+        </td>
+        <td class="p-2 md:border md:border-grey-500 text-left">
+          <app-row-actions
+            [rowId]="row.id"
+            [deleteRow]="boundDeleteRow"
+          ></app-row-actions>
         </td>
       </tr>
     </tbody>

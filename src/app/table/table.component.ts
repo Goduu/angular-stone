@@ -3,12 +3,13 @@ import { ColumnDefinition, DataModel, EditingField } from './data.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RowCellComponent } from './row-cell/row-cell.component';
+import { RowActionsComponent } from './row-actions/row-actions.component';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   standalone: true,
-  imports: [CommonModule, FormsModule, RowCellComponent]
+  imports: [CommonModule, FormsModule, RowCellComponent, RowActionsComponent]
 })
 
 export class TableComponent implements OnInit {
@@ -46,7 +47,7 @@ export class TableComponent implements OnInit {
       label: "Email",
       type: "email",
       editable: true
-    }
+    },
   ]
 
   setEditingField(columnKey: keyof DataModel, rowId: number, value: string | number, type: 'text' | 'number' | 'email') {
@@ -61,6 +62,13 @@ export class TableComponent implements OnInit {
     const newRow: DataModel = { id: this.data.length + 1, name: '', age: 0, email: '' };
     this.data.push(newRow);
   }
+
+
+  deleteRow(rowId: number) {
+    this.data = this.data.filter((row) => row.id !== rowId);
+  }
+
+  boundDeleteRow = this.deleteRow.bind(this);
 
   @HostListener('document:keydown.escape')
   onEscapeKey() {
